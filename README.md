@@ -36,5 +36,26 @@ docker images
 
 docker run -it -v $(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all  --rm sample_image_xu bash
 
-docker run -it -v \$(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all -v \$(pwd)/models:/root/models/ --rm sample_image_xu bash
+`docker run -it -v $(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all -v $(pwd)/models:/root/models/ --rm sample_image_xu bash`
+
+docker images
+
+显示所有镜像
+
+docker ps -a
+
+显示所有容器
+
+docker run -it --name "[容器名字]" image
+
+新建容器
+
+docker start -i [容器ID或容器名字]]
+
+启动已有容器（ID前三位即可），-i参数为直接连接容器
+
+docker rm [容器ID或容器名字]
+
+
+-v(--volume)=host_directory:container_directory
 
