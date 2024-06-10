@@ -26,3 +26,15 @@ Consider a fully connected layer with ‘m’ input units and ’n’ output uni
 During fine-tuning with LORA, we keep ‘W’ fixed and introduce two matrices, ‘A’ and ‘B’, into the equation. The new equation becomes Y = W X + A*B X. 
 
 ![LORA Matrix](https://miro.medium.com/v2/resize:fit:640/format:webp/1*d1ckUy_f3nfdTP_J0xzs-g.png "LORA Matrix")
+
+
+## Docker
+
+ssh z-xu@192.168.147.99
+
+docker images
+
+docker run -it -v $(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all  --rm sample_image_xu bash
+
+
+
