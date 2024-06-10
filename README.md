@@ -36,5 +36,6 @@ docker images
 
 docker run -it -v $(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all  --rm sample_image_xu bash
 
-
+docker run -it -v $(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ --name "docker_practice" --gpus all -v $(pwd)/models:/root/models/ 
+ --rm sample_image_xu bash
 
