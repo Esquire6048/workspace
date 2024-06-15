@@ -23,3 +23,7 @@ tmux a -t [name]
 
 退出tmux进程
 ⌃b d
+
+翻页模式
+⌃b [ 
+q
