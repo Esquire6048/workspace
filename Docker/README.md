@@ -3,13 +3,20 @@
 ## Common cmd
 
 显示所有镜像
+
 `docker images`
 
 显示所有容器
+
 `docker ps -a`
 
+新建镜像
+
+`docker build -t docker_name .`
+
 运行容器
-`docker run -it --name="docker_practice" -v=$(pwd)/pytorch_simplest_tutorial/:/home/tutorial/ -v=$(pwd)/models:/root/models/ --gpus all --rm sample_image_xu bash`
+
+`docker run -it --name="container_name" -v=$(pwd)/:/root/ --gpus all --rm image_name bash`
 
 -it 交互式
 
