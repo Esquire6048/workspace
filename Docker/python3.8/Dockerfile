@@ -14,30 +14,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     git-lfs \
     wget \
-    software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get update && apt-get install -y --no-install-recommends \
-    python3.10 \
-    python3.10-dev \
-    python3.10-distutils \
+    python3.8 \
+    python3.8-dev \
+    python3.8-distutils \
     && rm -rf /var/lib/apt/lists/*
 
-# 设置Python3.10为python3默认版本
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+# 设置Python3.8为python3默认版本
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
 
-# 设置Python3.10为python命令对象
-RUN ln -s /usr/bin/python3.10 /usr/local/bin/python
+# 设置Python3.8为python命令对象
+RUN ln -s /usr/bin/python3.8 /usr/local/bin/python
 
 # 安装pip
-RUN wget https://bootstrap.pypa.io/get-pip.py && python3.10 get-pip.py && rm get-pip.py
+RUN wget https://bootstrap.pypa.io/get-pip.py && python3.8 get-pip.py && rm get-pip.py
 
 # 安装PyTorch（包括CUDA和cuDNN支持）
 RUN python -m pip --no-cache-dir install --upgrade \
-        --pre torch torchvision torchaudio -f \
+        --pre torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 -f \
         https://download.pytorch.org/whl/nightly/cu113/torch_nightly.html
 
 # 安装其他常用的Python包
 RUN pip install --upgrade \
+    datasets \
     jupyterlab \
     matplotlib \
     numpy \
