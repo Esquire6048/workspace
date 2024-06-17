@@ -1,28 +1,22 @@
-# log_for_LLM
+# Log for LLM
 
-## GPT
+## Download Models
 
+```bash
+python scripts/download.py --repo_id REPO_ID --local_dir LOCAL_DIR --token TOKEN
+```
 
-## Bert
+<details>
+  <summary>See Common LLMs</summary>
 
-text classification, text summarization, and more.
+### Common models
 
-https://medium.com/@karkar.nizar/fine-tuning-bert-for-text-classification-with-lora-f12af7fa95e4
+| Model | REPO_ID | Need_TOKEN |
+|----|----|----|
+| Llama2 | meta-llama/Llama-2-7b-chat-hf | Yes |
+| Llama3 | meta-llama/Meta-Llama-3-8B-Instruct | Yes |
+| Mistral | mistralai/Mistral-7B-Instruct-v0.3 | No |
+| Phi3 | microsoft/Phi-3-small-8k-instruct | No |
+| RoBERTa | FacebookAI/roberta-large | No |
 
-## ALpaca
-
-
-## Llama
-
-
-## LORA
-
-fine-tuning a large language model (LLM) from scratch requires significantly more parameters than when fine-tuning from a pre-trained model.
-
-LORA introduces a method to learn a lower-dimensional, task-specific representation of the layer’s weights
-
-Consider a fully connected layer with ‘m’ input units and ’n’ output units. The weight matrix for this layer has dimensions ‘m x n’. When we provide an input ‘x’, the output of this layer is calculated using the formula Y = W X.
-
-During fine-tuning with LORA, we keep ‘W’ fixed and introduce two matrices, ‘A’ and ‘B’, into the equation. The new equation becomes Y = W X + A*B X. 
-
-![LORA Matrix](https://miro.medium.com/v2/resize:fit:640/format:webp/1*d1ckUy_f3nfdTP_J0xzs-g.png "LORA Matrix")
+</details>
