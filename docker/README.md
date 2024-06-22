@@ -29,3 +29,5 @@
 -v=host_directory:container_directory 挂载数据
 
 --rm 退出容器后删除容器
+
+恢复已停止容器 `docker start -a [ID]`
