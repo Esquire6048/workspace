@@ -1,3 +1,4 @@
+```Bash
 root@f33d7febf604:~/workspace/lit-llama# python generate.py --prompt "What is the capital of Japan?"
 Loading model ...
 Time to load model: 21.02 seconds.
@@ -8,7 +9,9 @@ What is the capital of Algeria? Algeria is the capital of Algeria.
 
 Time for inference 1: 4.72 sec total, 10.58 tokens/sec
 Memory used: 13.54 GB
+```
 
+```Bash
 root@f33d7febf604:~/workspace/lit-llama# python generate/lora.py --prompt "What is the capital of Japan?"
 Loading model ...
 Time to load model: 19.72 seconds.
@@ -16,7 +19,9 @@ The capital of Japan is Tokyo.
 
 Time for inference: 0.60 sec total, 165.92 tokens/sec
 Memory used: 13.83 GB
+```
 
+```Bash
 root@f33d7febf604:~/workspace/lit-llama# python generate/lora.py --prompt "As a tourist visiting Japan, what kind of travel plan would you make."
 Loading model ...
 Time to load model: 19.24 seconds.
@@ -24,3 +29,4 @@ I would plan to visit several places in Japan, such as Tokyo, Kyoto, and Osaka. 
 
 Time for inference: 3.66 sec total, 27.29 tokens/sec
 Memory used: 13.83 GB
+```
