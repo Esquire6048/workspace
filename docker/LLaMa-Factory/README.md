@@ -1,5 +1,5 @@
 ```Bash
-docker build -f $(pwd)Dockerfile --build-arg INSTALL_BNB=false --build-arg INSTALL_VLLM=false --build-arg INSTALL_DEEPSPEED=false --build-arg PIP_INDEX=https://pypi.org/simple -t llamafactory:latest .
+docker build -f $(pwd)/Dockerfile --build-arg INSTALL_BNB=false --build-arg INSTALL_VLLM=false --build-arg INSTALL_DEEPSPEED=false --build-arg PIP_INDEX=https://pypi.org/simple -t llamafactory:latest .
 ```
 
 ```Bash
