@@ -1,5 +1,5 @@
 # 使用官方的NVIDIA CUDA基础镜像
-FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.8.0-devel-ubuntu20.04
 
 # 设置维护者信息
 LABEL maintainer="z-xu@ist.osaka-u.ac.jp"
@@ -35,8 +35,8 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && python3.10 get-pip.py && rm get
 
 # 安装PyTorch（包括CUDA和cuDNN支持）
 RUN python -m pip --no-cache-dir install --upgrade \
-        --pre torch==2.0.0 torchaudio==2.0.1 torchvision==0.15.1 -f \
-        https://download.pytorch.org/whl/nightly/cu113/torch_nightly.html
+        --pre torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 -f \
+        https://download.pytorch.org/whl/cu118
 
 # 安装其他常用的Python包
 RUN pip install --upgrade \
