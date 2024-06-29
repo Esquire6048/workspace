@@ -46,7 +46,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && python3.10 get-pip.py && rm get
 
 # 安装PyTorch（包括CUDA和cuDNN支持）
 RUN python -m pip --no-cache-dir install --upgrade \
-        --pre torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 -f \
+        --pre torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 -f \
         https://download.pytorch.org/whl/cu118
 
 # Install the requirements
