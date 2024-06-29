@@ -47,6 +47,7 @@ RUN python -m pip --no-cache-dir install --upgrade \
 # 安装其他常用的Python包
 RUN pip install --upgrade \
     datasets \
+    flash-attn \
     jupyterlab \
     matplotlib \
     numpy \
