@@ -1,0 +1,17 @@
+cutoff_len: 1024
+dataset: python_code
+dataset_dir: data
+do_predict: true
+finetuning_type: lora
+flash_attn: auto
+max_new_tokens: 512
+max_samples: 500
+model_name_or_path: microsoft/Phi-3-mini-128k-instruct
+output_dir: saves/Phi3-4B-128k-Chat/lora/eval_original_2024-06-25-10-33-00
+per_device_eval_batch_size: 2
+predict_with_generate: true
+preprocessing_num_workers: 16
+stage: sft
+temperature: 0.95
+template: phi
+top_p: 0.7

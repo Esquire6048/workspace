@@ -1,0 +1,236 @@
+06/25/2024 10:37:33 - INFO - transformers.tokenization_utils_base - loading file tokenizer.model from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/tokenizer.model
+
+06/25/2024 10:37:33 - INFO - transformers.tokenization_utils_base - loading file tokenizer.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/tokenizer.json
+
+06/25/2024 10:37:33 - INFO - transformers.tokenization_utils_base - loading file added_tokens.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/added_tokens.json
+
+06/25/2024 10:37:33 - INFO - transformers.tokenization_utils_base - loading file special_tokens_map.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/special_tokens_map.json
+
+06/25/2024 10:37:33 - INFO - transformers.tokenization_utils_base - loading file tokenizer_config.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/tokenizer_config.json
+
+06/25/2024 10:37:33 - WARNING - transformers.tokenization_utils_base - Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+06/25/2024 10:37:33 - INFO - llamafactory.data.template - Replace eos token: <|end|>
+
+06/25/2024 10:37:33 - WARNING - llamafactory.data.template - New tokens have been added, make sure `resize_vocab` is True.
+
+06/25/2024 10:37:33 - INFO - llamafactory.data.loader - Loading dataset iamtarun/python_code_instructions_18k_alpaca...
+
+06/25/2024 10:37:33 - WARNING - transformers.tokenization_utils_base - Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+06/25/2024 10:37:33 - INFO - llamafactory.data.template - Replace eos token: <|end|>
+
+06/25/2024 10:37:33 - WARNING - llamafactory.data.template - New tokens have been added, make sure `resize_vocab` is True.
+
+06/25/2024 10:37:38 - INFO - llamafactory.data.loader - Loading dataset iamtarun/python_code_instructions_18k_alpaca...
+
+06/25/2024 10:37:42 - INFO - transformers.configuration_utils - loading configuration file config.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/config.json
+
+06/25/2024 10:37:43 - INFO - transformers.configuration_utils - loading configuration file config.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/config.json
+
+06/25/2024 10:37:43 - INFO - transformers.configuration_utils - Model config Phi3Config {
+  "_name_or_path": "microsoft/Phi-3-mini-128k-instruct",
+  "architectures": [
+    "Phi3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "auto_map": {
+    "AutoConfig": "microsoft/Phi-3-mini-128k-instruct--configuration_phi3.Phi3Config",
+    "AutoModelForCausalLM": "microsoft/Phi-3-mini-128k-instruct--modeling_phi3.Phi3ForCausalLM",
+    "AutoModelForSequenceClassification": "microsoft/Phi-3-mini-128k-instruct--modeling_phi3.Phi3ForSequenceClassification",
+    "AutoModelForTokenClassification": "microsoft/Phi-3-mini-128k-instruct--modeling_phi3.Phi3ForTokenClassification"
+  },
+  "bos_token_id": 1,
+  "embd_pdrop": 0.0,
+  "eos_token_id": 32000,
+  "hidden_act": "silu",
+  "hidden_size": 3072,
+  "initializer_range": 0.02,
+  "intermediate_size": 8192,
+  "max_position_embeddings": 131072,
+  "model_type": "phi3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 32,
+  "original_max_position_embeddings": 4096,
+  "pad_token_id": 32000,
+  "resid_pdrop": 0.0,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "long_factor": [
+      1.0299999713897705,
+      1.0499999523162842,
+      1.0499999523162842,
+      1.0799999237060547,
+      1.2299998998641968,
+      1.2299998998641968,
+      1.2999999523162842,
+      1.4499999284744263,
+      1.5999999046325684,
+      1.6499998569488525,
+      1.8999998569488525,
+      2.859999895095825,
+      3.68999981880188,
+      5.419999599456787,
+      5.489999771118164,
+      5.489999771118164,
+      9.09000015258789,
+      11.579999923706055,
+      15.65999984741211,
+      15.769999504089355,
+      15.789999961853027,
+      18.360000610351562,
+      21.989999771118164,
+      23.079999923706055,
+      30.009998321533203,
+      32.35000228881836,
+      32.590003967285156,
+      35.56000518798828,
+      39.95000457763672,
+      53.840003967285156,
+      56.20000457763672,
+      57.95000457763672,
+      59.29000473022461,
+      59.77000427246094,
+      59.920005798339844,
+      61.190006256103516,
+      61.96000671386719,
+      62.50000762939453,
+      63.3700065612793,
+      63.48000717163086,
+      63.48000717163086,
+      63.66000747680664,
+      63.850006103515625,
+      64.08000946044922,
+      64.760009765625,
+      64.80001068115234,
+      64.81001281738281,
+      64.81001281738281
+    ],
+    "short_factor": [
+      1.05,
+      1.05,
+      1.05,
+      1.1,
+      1.1,
+      1.1500000000000001,
+      1.2000000000000002,
+      1.2500000000000002,
+      1.3000000000000003,
+      1.3500000000000003,
+      1.5000000000000004,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.000000000000001,
+      2.0500000000000007,
+      2.0500000000000007,
+      2.0500000000000007,
+      2.1000000000000005,
+      2.1000000000000005,
+      2.1000000000000005,
+      2.1500000000000004,
+      2.1500000000000004,
+      2.3499999999999996,
+      2.549999999999999,
+      2.5999999999999988,
+      2.5999999999999988,
+      2.7499999999999982,
+      2.849999999999998,
+      2.849999999999998,
+      2.9499999999999975
+    ],
+    "type": "su"
+  },
+  "rope_theta": 10000.0,
+  "sliding_window": 262144,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.41.2",
+  "use_cache": true,
+  "vocab_size": 32064
+}
+
+
+06/25/2024 10:37:43 - INFO - llamafactory.model.patcher - Using KV cache for faster generation.
+
+06/25/2024 10:37:43 - INFO - llamafactory.model.patcher - Using KV cache for faster generation.
+
+06/25/2024 10:37:43 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - `flash-attention` package not found, consider installing for better performance: No module named 'flash_attn'.
+
+06/25/2024 10:37:43 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - Current `flash-attenton` does not support `window_size`. Either upgrade or use `attn_implementation='eager'`.
+
+06/25/2024 10:37:43 - INFO - transformers.modeling_utils - loading weights file model.safetensors from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/model.safetensors.index.json
+
+06/25/2024 10:37:43 - INFO - transformers.modeling_utils - Instantiating Phi3ForCausalLM model under default dtype torch.bfloat16.
+
+06/25/2024 10:37:43 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "eos_token_id": 32000,
+  "pad_token_id": 32000
+}
+
+
+06/25/2024 10:37:43 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - `flash-attention` package not found, consider installing for better performance: No module named 'flash_attn'.
+
+06/25/2024 10:37:43 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - Current `flash-attenton` does not support `window_size`. Either upgrade or use `attn_implementation='eager'`.
+
+06/25/2024 10:37:45 - INFO - transformers.modeling_utils - All model checkpoint weights were used when initializing Phi3ForCausalLM.
+
+
+06/25/2024 10:37:45 - INFO - transformers.modeling_utils - All the weights of Phi3ForCausalLM were initialized from the model checkpoint at microsoft/Phi-3-mini-128k-instruct.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use Phi3ForCausalLM for predictions without further training.
+
+06/25/2024 10:37:45 - INFO - transformers.generation.configuration_utils - loading configuration file generation_config.json from cache at /root/.cache/huggingface/hub/models--microsoft--Phi-3-mini-128k-instruct/snapshots/bb5bf1e4001277a606e11debca0ef80323e5f824/generation_config.json
+
+06/25/2024 10:37:45 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "eos_token_id": [
+    32000,
+    32001,
+    32007
+  ],
+  "pad_token_id": 32000
+}
+
+
+06/25/2024 10:37:45 - INFO - llamafactory.model.model_utils.attention - Using vanilla attention implementation.
+
+06/25/2024 10:37:45 - INFO - llamafactory.model.loader - all params: 3821079552
+
+06/25/2024 10:37:45 - INFO - llamafactory.model.model_utils.attention - Using vanilla attention implementation.
+
+06/25/2024 10:37:45 - INFO - llamafactory.model.loader - all params: 3821079552
+
+06/25/2024 10:37:45 - WARNING - accelerate.utils.other - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+
+06/25/2024 10:37:46 - INFO - transformers.trainer - ***** Running Prediction *****
+
+06/25/2024 10:37:46 - INFO - transformers.trainer -   Num examples = 500
+
+06/25/2024 10:37:46 - INFO - transformers.trainer -   Batch size = 2
+
+06/25/2024 10:37:46 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - You are not running the flash-attention implementation, expect numerical differences.
+
+06/25/2024 10:37:46 - WARNING - transformers_modules.microsoft.Phi-3-mini-128k-instruct.bb5bf1e4001277a606e11debca0ef80323e5f824.modeling_phi3 - You are not running the flash-attention implementation, expect numerical differences.
+
+06/25/2024 11:23:26 - INFO - llamafactory.train.sft.trainer - Saving prediction results to saves/Phi3-4B-128k-Chat/lora/eval_original_2024-06-25-10-33-00/generated_predictions.jsonl
+
