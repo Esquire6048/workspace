@@ -17,13 +17,3 @@ docker run -it --gpus=all -v $(pwd)/hf_cache:/root/.cache/huggingface/ -v $(pwd)
 ```Bash
 llamafactory-cli webui
 ```
-
-## Python3.10
-
-```Bash
-apt-get update && apt-get install -y --no-install-recommends software-properties-common
-add-apt-repository ppa:deadsnakes/ppa
-apt-get install -y python3.10 python3.10-dev python3.10-distutils
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
-ln -s /usr/bin/python3.10 /usr/local/bin/python
-```
