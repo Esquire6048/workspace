@@ -1,0 +1,84 @@
+06/30/2024 03:58:21 - INFO - transformers.tokenization_utils_base - loading file tokenizer.model from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/tokenizer.model
+
+06/30/2024 03:58:21 - INFO - transformers.tokenization_utils_base - loading file tokenizer.json from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/tokenizer.json
+
+06/30/2024 03:58:21 - INFO - transformers.tokenization_utils_base - loading file added_tokens.json from cache at None
+
+06/30/2024 03:58:21 - INFO - transformers.tokenization_utils_base - loading file special_tokens_map.json from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/special_tokens_map.json
+
+06/30/2024 03:58:21 - INFO - transformers.tokenization_utils_base - loading file tokenizer_config.json from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/tokenizer_config.json
+
+06/30/2024 03:58:22 - INFO - llamafactory.data.template - Add pad token: </s>
+
+06/30/2024 03:58:22 - INFO - llamafactory.data.loader - Loading dataset iamtarun/python_code_instructions_18k_alpaca...
+
+06/30/2024 03:58:25 - INFO - transformers.configuration_utils - loading configuration file config.json from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/config.json
+
+06/30/2024 03:58:25 - INFO - transformers.configuration_utils - Model config MistralConfig {
+  "_name_or_path": "mistralai/Mistral-7B-Instruct-v0.3",
+  "architectures": [
+    "MistralForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 1,
+  "eos_token_id": 2,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 32768,
+  "model_type": "mistral",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-05,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.41.2",
+  "use_cache": true,
+  "vocab_size": 32768
+}
+
+
+06/30/2024 03:58:25 - INFO - llamafactory.model.patcher - Using KV cache for faster generation.
+
+06/30/2024 03:58:25 - INFO - transformers.modeling_utils - loading weights file model.safetensors from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/model.safetensors.index.json
+
+06/30/2024 03:58:25 - INFO - transformers.modeling_utils - Instantiating MistralForCausalLM model under default dtype torch.bfloat16.
+
+06/30/2024 03:58:25 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "eos_token_id": 2
+}
+
+
+06/30/2024 03:58:30 - INFO - transformers.modeling_utils - All model checkpoint weights were used when initializing MistralForCausalLM.
+
+
+06/30/2024 03:58:30 - INFO - transformers.modeling_utils - All the weights of MistralForCausalLM were initialized from the model checkpoint at mistralai/Mistral-7B-Instruct-v0.3.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use MistralForCausalLM for predictions without further training.
+
+06/30/2024 03:58:30 - INFO - transformers.generation.configuration_utils - loading configuration file generation_config.json from cache at /root/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0417f4babd26db0b5ed07c1d0bc85658ab526ea3/generation_config.json
+
+06/30/2024 03:58:30 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 1,
+  "eos_token_id": 2
+}
+
+
+06/30/2024 03:58:30 - INFO - llamafactory.model.model_utils.attention - Using torch SDPA for faster training and inference.
+
+06/30/2024 03:58:30 - INFO - llamafactory.model.loader - all params: 7248023552
+
+06/30/2024 03:58:30 - WARNING - accelerate.utils.other - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+
+06/30/2024 03:58:30 - INFO - transformers.trainer - ***** Running Prediction *****
+
+06/30/2024 03:58:30 - INFO - transformers.trainer -   Num examples = 1000
+
+06/30/2024 03:58:30 - INFO - transformers.trainer -   Batch size = 2
+
+06/30/2024 05:42:57 - INFO - llamafactory.train.sft.trainer - Saving prediction results to saves/Mistral-7B-v0.3-Chat/lora/eval_origin_2024-06-29-15-53-44/generated_predictions.jsonl
+

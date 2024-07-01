@@ -16,11 +16,6 @@ ARG PIP_INDEX=https://pypi.org/simple
 # Set the working directory
 WORKDIR /app
 
-# 添加python3.10软件源
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa
-
 # 更新包列表并安装常用工具
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -28,25 +23,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     git-lfs \
     wget \
-    python3.10 \
-    python3.10-dev \
-    python3.10-distutils \
+    python3.8 \
+    python3.8-dev \
+    python3.8-distutils \
     python3-pkg-resources \
     python3-setuptools \
     && rm -rf /var/lib/apt/lists/*
 
-# 设置Python3.10为python3默认版本
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+# 设置Python3.8为python3默认版本
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
 
-# 设置Python3.10为python命令对象
-RUN ln -s /usr/bin/python3.10 /usr/local/bin/python
+# 设置Python3.8为python命令对象
+RUN ln -s /usr/bin/python3.8 /usr/local/bin/python
 
 # 安装pip
-RUN wget https://bootstrap.pypa.io/get-pip.py && python3.10 get-pip.py && rm get-pip.py
+RUN wget https://bootstrap.pypa.io/get-pip.py && python3.8 get-pip.py && rm get-pip.py
 
 # 安装PyTorch（包括CUDA和cuDNN支持）
 RUN python -m pip --no-cache-dir install --upgrade \
-        --pre torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 -f \
+        --pre torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 -f \
         https://download.pytorch.org/whl/cu118
 
 # Install the requirements

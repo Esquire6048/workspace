@@ -1,0 +1,102 @@
+06/29/2024 15:54:13 - INFO - transformers.tokenization_utils_base - loading file tokenizer.json from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/tokenizer.json
+
+06/29/2024 15:54:13 - INFO - transformers.tokenization_utils_base - loading file added_tokens.json from cache at None
+
+06/29/2024 15:54:13 - INFO - transformers.tokenization_utils_base - loading file special_tokens_map.json from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/special_tokens_map.json
+
+06/29/2024 15:54:13 - INFO - transformers.tokenization_utils_base - loading file tokenizer_config.json from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/tokenizer_config.json
+
+06/29/2024 15:54:13 - WARNING - transformers.tokenization_utils_base - Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+06/29/2024 15:54:13 - INFO - llamafactory.data.template - Replace eos token: <|eot_id|>
+
+06/29/2024 15:54:13 - INFO - llamafactory.data.template - Add pad token: <|eot_id|>
+
+06/29/2024 15:54:13 - INFO - llamafactory.data.loader - Loading dataset iamtarun/python_code_instructions_18k_alpaca...
+
+06/29/2024 15:54:23 - INFO - transformers.configuration_utils - loading configuration file config.json from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/config.json
+
+06/29/2024 15:54:23 - INFO - transformers.configuration_utils - Model config LlamaConfig {
+  "_name_or_path": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128009,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 8192,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": null,
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.41.2",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+06/29/2024 15:54:23 - INFO - llamafactory.model.patcher - Using KV cache for faster generation.
+
+06/29/2024 15:54:23 - INFO - transformers.modeling_utils - loading weights file model.safetensors from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/model.safetensors.index.json
+
+06/29/2024 15:54:23 - INFO - transformers.modeling_utils - Instantiating LlamaForCausalLM model under default dtype torch.bfloat16.
+
+06/29/2024 15:54:23 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 128000,
+  "eos_token_id": 128009
+}
+
+
+06/29/2024 15:55:04 - INFO - transformers.modeling_utils - All model checkpoint weights were used when initializing LlamaForCausalLM.
+
+
+06/29/2024 15:55:04 - INFO - transformers.modeling_utils - All the weights of LlamaForCausalLM were initialized from the model checkpoint at meta-llama/Meta-Llama-3-8B-Instruct.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use LlamaForCausalLM for predictions without further training.
+
+06/29/2024 15:55:05 - INFO - transformers.generation.configuration_utils - loading configuration file generation_config.json from cache at /root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa/generation_config.json
+
+06/29/2024 15:55:05 - INFO - transformers.generation.configuration_utils - Generate config GenerationConfig {
+  "bos_token_id": 128000,
+  "do_sample": true,
+  "eos_token_id": [
+    128001,
+    128009
+  ],
+  "max_length": 4096,
+  "temperature": 0.6,
+  "top_p": 0.9
+}
+
+
+06/29/2024 15:55:05 - INFO - llamafactory.model.model_utils.attention - Using torch SDPA for faster training and inference.
+
+06/29/2024 15:55:06 - INFO - llamafactory.model.adapter - Merged 1 adapter(s).
+
+06/29/2024 15:55:06 - INFO - llamafactory.model.adapter - Loaded adapter(s): saves/LLaMA3-8B-Chat/lora/train_2024-06-27-17-55-00
+
+06/29/2024 15:55:06 - INFO - llamafactory.model.loader - all params: 8030261248
+
+06/29/2024 15:55:06 - WARNING - accelerate.utils.other - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+
+06/29/2024 15:55:06 - INFO - transformers.trainer - ***** Running Prediction *****
+
+06/29/2024 15:55:06 - INFO - transformers.trainer -   Num examples = 1000
+
+06/29/2024 15:55:06 - INFO - transformers.trainer -   Batch size = 2
+
+06/29/2024 16:10:04 - WARNING - transformers.generation.utils - A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+06/29/2024 16:34:46 - INFO - llamafactory.train.sft.trainer - Saving prediction results to saves/LLaMA3-8B-Chat/lora/eval_lora_2024-06-29-15-53-44/generated_predictions.jsonl
+

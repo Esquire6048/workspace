@@ -1,0 +1,19 @@
+eval.batch_size: 2
+eval.cutoff_len: 1024
+eval.dataset:
+- python_code
+eval.dataset_dir: data
+eval.max_new_tokens: 512
+eval.max_samples: '1000'
+eval.output_dir: eval_origin_2024-06-29-15-53-44
+eval.predict: true
+eval.temperature: 0.95
+eval.top_p: 0.7
+top.booster: none
+top.checkpoint_path: []
+top.finetuning_type: lora
+top.model_name: Mistral-7B-v0.3-Chat
+top.quantization_bit: none
+top.rope_scaling: none
+top.template: mistral
+top.visual_inputs: false
