@@ -1,0 +1,4 @@
+datasets
+flash-attn
+pytest
+setuptools==69.5.1
