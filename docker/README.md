@@ -31,3 +31,7 @@
 --rm 退出容器后删除容器
 
 恢复已停止容器 `docker start -a [ID]`
+
+删除容器 `docker rm [ID]`
+
+删除镜像 `docker rmi [ID]`
