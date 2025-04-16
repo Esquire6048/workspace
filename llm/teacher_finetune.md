@@ -164,6 +164,8 @@ tokenizer.save_pretrained("./bert-teacher")
 
 模型保存的是“怎么理解 token ID”
 
-tokenizer 保存的是“token ID 是谁”
+tokenizer保存的是“token ID 是谁”
 
 两者缺一不可
+
+但这里，实际没有对tokenizer做任何修改，只是一种好习惯，因为在其他场合可能有区别
