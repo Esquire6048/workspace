@@ -5,14 +5,23 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# 加载训练好的教师模型
 teacher = BertForSequenceClassification.from_pretrained("./bert-teacher")
+
+# 加载学生模型
 student = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
+
+# 加载分词器
 tokenizer = DistilBertTokenizerFast.from_pretrained("distilbert-base-uncased")
+
+# 加载IMDb的数据集
 dataset = load_dataset("imdb")
 
+# 定义分词函数
 def tokenize(batch):
     return tokenizer(batch["text"], padding=True, truncation=True)
 
+# 批量处理整个数据集并设置格式为PyTorch Tensor
 dataset = dataset.map(tokenize, batched=True)
 dataset.set_format("torch", columns=["input_ids", "attention_mask", "label"])
 
