@@ -1,4 +1,4 @@
-from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments, DistilBertTokenizerFast
+from transformers import DistilBertForSequenceClassification, DistilBertTokenizerFast, Trainer, TrainingArguments
 from transformers import BertForSequenceClassification
 from datasets import load_dataset
 import torch
@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 # 加载训练好的教师模型
-teacher = BertForSequenceClassification.from_pretrained("./bert-teacher")
+teacher = BertForSequenceClassification.from_pretrained("./models/bert")
 
 # 加载学生模型
 student = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
@@ -25,9 +25,13 @@ def tokenize(batch):
 dataset = dataset.map(tokenize, batched=True)
 dataset.set_format("torch", columns=["input_ids", "attention_mask", "label"])
 
+print("🔍 Sample keys in training batch:", dataset["train"][0].keys())
+
 class DistillTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
-        labels = inputs.pop("label")
+        device = inputs["input_ids"].device
+        teacher.to(device)
+        labels = inputs.pop("labels")
         outputs_student = model(**inputs)
         with torch.no_grad():
             outputs_teacher = teacher(**inputs)
@@ -42,7 +46,7 @@ class DistillTrainer(Trainer):
         return (loss, outputs_student) if return_outputs else loss
 
 training_args = TrainingArguments(
-    output_dir="./distilbert-imdb",
+    output_dir="./checkpoints/distilbert-distilled",
     evaluation_strategy="epoch",
     save_strategy="epoch",
     per_device_train_batch_size=8,
@@ -57,10 +61,10 @@ training_args = TrainingArguments(
 trainer = DistillTrainer(
     model=student,
     args=training_args,
-    train_dataset=dataset["train"].shuffle(seed=42).select(range(2000)),
-    eval_dataset=dataset["test"].shuffle(seed=42).select(range(1000)),
+    train_dataset=dataset["train"].shuffle(seed=42),
+    eval_dataset=dataset["test"],
 )
 
 trainer.train()
-student.save_pretrained("./distilbert-student")
-tokenizer.save_pretrained("./distilbert-student")
+student.save_pretrained("./models/distilbert-distilled")
+tokenizer.save_pretrained("./models/distilbert-distilled")

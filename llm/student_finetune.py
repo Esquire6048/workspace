@@ -1,10 +1,10 @@
-from transformers import BertForSequenceClassification, BertTokenizerFast, Trainer, TrainingArguments
+from transformers import DistilBertForSequenceClassification, DistilBertTokenizerFast, Trainer, TrainingArguments
 from datasets import load_dataset
 import torch
 
 # 加载模型和分词器，使用了BERT模型，任务是二分类
-model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
-tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
+tokenizer = DistilBertTokenizerFast.from_pretrained("distilbert-base-uncased")
 
 # 加载IMDb的数据集
 dataset = load_dataset("imdb")
@@ -19,7 +19,7 @@ dataset.set_format("torch", columns=["input_ids", "attention_mask", "label"])
 
 # 定义训练参数
 training_args = TrainingArguments(
-    output_dir="./checkpoints/bert", # 输出目录
+    output_dir="./checkpoints/distilbert", # 输出目录
     evaluation_strategy="epoch", # 每轮评估
     save_strategy="epoch", # 每轮保存
     per_device_train_batch_size=8, # 每张 GPU 每个 step 训练的样本数
@@ -31,7 +31,7 @@ training_args = TrainingArguments(
     fp16=True if torch.cuda.is_available() else False #如果有 GPU，就使用混合精度训练（FP16）
 )
 
-# 定于训练器
+# 定义训练器
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -40,5 +40,5 @@ trainer = Trainer(
 )
 # 启动训练并保存模型
 trainer.train()
-model.save_pretrained("./models/bert")
-tokenizer.save_pretrained("./models/bert")
+model.save_pretrained("./models/distilbert")
+tokenizer.save_pretrained("./models/distilbert")
