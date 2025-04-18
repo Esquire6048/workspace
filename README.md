@@ -11,6 +11,10 @@ nvidia-smi
 top -p $(nvidia-smi | grep -oP '\d+(?=\s+C)' | tr '\n' ',' | sed 's/,$//')
 ```
 
+```bash
+export CUDA_VISIBLE_DEVICES=1
+```
+
 </details>
 
 <details>
