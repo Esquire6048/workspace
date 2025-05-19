@@ -1,7 +1,7 @@
 ## 库导入
 
 ```python
-from transformers import BertForSequenceClassification, Trainer, TrainingArguments, BertTokenizerFast
+from transformers import BertForSequenceClassification, BertTokenizerFast, Trainer, TrainingArguments
 from datasets import load_dataset
 import torch
 ```
@@ -111,7 +111,7 @@ set_format把数据从 Python dict 变成 PyTorch Tensor 格式。
 
 ```python
 training_args = TrainingArguments(
-    output_dir="./bert-imdb", # 输出目录
+    output_dir="./checkpoints/bert", # 输出目录
     evaluation_strategy="epoch", # 每轮评估
     save_strategy="epoch", # 每轮保存
     per_device_train_batch_size=8, # 每张 GPU 每个 step 训练的样本数
@@ -139,7 +139,7 @@ Epoch 是模型完整遍历一遍训练/验证集的过程
 
 “每张 GPU 各处理一个 batch”这一过程，称为一个 step
 
-## 定义训练器
+## 初始化 Trainer
 
 ```python
 trainer = Trainer(
