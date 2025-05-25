@@ -6,10 +6,10 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # 参数设置
 MODEL_NAME = "microsoft/phi-3-mini-4k-instruct"
-SAVE_DIR = "teacher_cache"
-SAVE_PATH = os.path.join(SAVE_DIR, "teacher_outputs_10k.pt")
+SAVE_DIR = "teacher_cache_slim"
 NUM_SAMPLES = 10_000
-MAX_LENGTH = 1024  # 截断最大长度
+MAX_LENGTH = 1024
+SELECTED_HIDDEN_LAYERS = [0, 4, 8, 12, 16, 20, 24, 28]
 
 # 创建保存目录
 os.makedirs(SAVE_DIR, exist_ok=True)
@@ -25,7 +25,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 model.eval()
 
-# 加载数据集前 10k 条
+# 加载数据集
 print("📚 Loading CNN/DailyMail dataset...")
 dataset = load_dataset("cnn_dailymail", "3.0.0")["train"].select(range(NUM_SAMPLES))
 
@@ -39,31 +39,41 @@ def format_sample(example):
 
 dataset = dataset.map(format_sample)
 
-# 生成教师输出
-cached_outputs = []
-print("🚀 Generating teacher outputs...")
-for example in tqdm(dataset):
+# 逐样本保存（sample-wise）
+print(f"🚀 Saving only logits + 8 hidden_states for {NUM_SAMPLES} samples...")
+for idx, example in enumerate(tqdm(dataset)):
+    save_path = os.path.join(SAVE_DIR, f"teacher_{idx}.pt")
+    if os.path.exists(save_path):
+        continue
+
     input_text = example["input"]
     input_id = example["id"]
 
-    inputs = tokenizer(input_text, return_tensors="pt", truncation=True,
-                       max_length=MAX_LENGTH, padding=False).to(model.device)
+    try:
+        inputs = tokenizer(input_text, return_tensors="pt", truncation=True,
+                           max_length=MAX_LENGTH, padding=False).to(model.device)
 
-    with torch.no_grad():
-        outputs = model(
-            **inputs,
-            output_hidden_states=True,
-            output_attentions=True,
-            return_dict=True
-        )
+        with torch.no_grad():
+            outputs = model(
+                **inputs,
+                output_hidden_states=True,
+                output_attentions=False,  # 关闭注意力节省内存
+                return_dict=True
+            )
 
-    cached_outputs.append({
-        "id": input_id,
-        "logits": outputs.logits.cpu(),
-        "hidden_states": [layer.cpu() for layer in outputs.hidden_states],  # 33层
-        "attentions": [attn.cpu() for attn in outputs.attentions]  # 32层
-    })
+        selected_hidden = [
+            outputs.hidden_states[i].cpu()
+            for i in SELECTED_HIDDEN_LAYERS
+        ]
 
-# 保存到 pt 文件
-torch.save(cached_outputs, SAVE_PATH)
-print(f"✅ Saved teacher outputs to: {SAVE_PATH}")
+        sample_output = {
+            "id": input_id,
+            "logits": outputs.logits.cpu(),
+            "hidden_states": selected_hidden
+        }
+
+        torch.save(sample_output, save_path)
+
+    except Exception as e:
+        print(f"❌ Error at sample {idx}: {e}")
+        continue
