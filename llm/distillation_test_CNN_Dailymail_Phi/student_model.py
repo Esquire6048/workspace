@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from transformers import PreTrainedModel, LlamaConfig
 from transformers.models.llama.modeling_llama import LlamaDecoderLayer  # 使用 Phi-3 类似结构
@@ -42,25 +43,30 @@ class StudentModelForCausalLM(PreTrainedModel):
         self.init_weights()
 
     def forward(self, input_ids, attention_mask=None, labels=None):
+        position_ids = torch.arange(0, input_ids.size(1), dtype=torch.long, device=input_ids.device)
+        position_ids = position_ids.unsqueeze(0).expand_as(input_ids)
+
+        if attention_mask is not None and attention_mask.dim() == 2:
+            attention_mask = attention_mask[:, None, None, :]  # [B, 1, 1, S]
+
         hidden_states = self.embed_tokens(input_ids)
+        all_hidden_states = []
 
         for layer in self.layers:
-            hidden_states = layer(hidden_states, attention_mask=attention_mask)[0]
+            hidden_states = layer(
+                hidden_states,
+                attention_mask=attention_mask,
+                position_ids=position_ids
+            )[0]
+            all_hidden_states.append(hidden_states)
 
         hidden_states = self.norm(hidden_states)
         logits = self.lm_head(hidden_states)
 
-        loss = None
-        if labels is not None:
-            shift_logits = logits[..., :-1, :].contiguous()
-            shift_labels = labels[..., 1:].contiguous()
-            loss = nn.functional.cross_entropy(
-                shift_logits.view(-1, shift_logits.size(-1)),
-                shift_labels.view(-1),
-                ignore_index=-100
-            )
-
         return CausalLMOutputWithPast(
-            loss=loss,
+            loss=None,
             logits=logits,
+            hidden_states=all_hidden_states  # 用于蒸馏
         )
+
+

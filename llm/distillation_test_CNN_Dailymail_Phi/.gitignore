@@ -4,3 +4,5 @@ teacher_cache/
 student_model_A/
 student_model_B/
 __pycache__/
+checkpoints_student_A/
+checkpoints_student_B/
