@@ -1,9 +1,8 @@
 import os
-import h5py
 import argparse
 import numpy as np
-from typing import List, Tuple, Dict
 from h5_file_io import read_file_list, load_h5_files, write_ply
+from point_cloud_slice import slice_point_cloud
 
 
 def export_sample_slices(
@@ -11,26 +10,25 @@ def export_sample_slices(
     label: int,
     idx: int,
     out_dir: str,
-    num_slices: int = 3,
+    num_slices: int = 1,
     fov_deg: float = 60.0,
 ) -> None:
     """
     对单个样本的点云进行方位角切片并导出 PLY 文件。
     样本索引 idx 和标签 label 会被用于生成文件名。
     """
-    centered = pts - pts.mean(axis=0)
-    thetas = np.degrees(np.arctan2(centered[:,1], centered[:,0]))
-    thetas = np.mod(thetas, 360)
-    span = 360.0 / num_slices
-    for s in range(num_slices):
-        mask = (thetas >= s * span) & (thetas < (s + 1) * span)
-        slice_pts = pts[mask]
-        if slice_pts.size == 0:
-            print(f"[警告] 样本 {idx} 第 {s} 扇区无点，跳过。")
-            continue
-        filename = f"sample_{idx:04d}_slice{s:02d}_cls{label}.ply"
-        out_path = os.path.join(out_dir, filename)
-        write_ply(slice_pts, out_path)
+    if num_slices > 1:
+        slices = slice_point_cloud(pts, num_sensors=num_slices, fov_deg=fov_deg)
+        for s, slice_pts in enumerate(slices):
+            if slice_pts.size == 0:
+                print(f"[警告] 样本 {idx} 视角 {s} 无点，跳过。")
+                continue
+            fname = f"sample_{idx:04d}_sensor{s}_cls{label}.ply"
+            write_ply(slice_pts, os.path.join(out_dir, fname))
+    else:
+        # 不切分时保持原行为
+        fname = f"sample_{idx:04d}_cls{label}.ply"
+        write_ply(pts, os.path.join(out_dir, fname))
 
 
 def parse_args():
@@ -44,7 +42,9 @@ def parse_args():
     parser.add_argument('--out_dir', type=str, default='output_ply',
                         help='导出 PLY 文件保存目录')
     parser.add_argument('--slices', type=int, default=1,
-                        help='要切分的方位扇区数量 N，默认为1（不切分）')
+                        help='要切分的方位扇区数量，默认为1（不切分）')
+    parser.add_argument('--fov_deg', type=int, default=60,
+                        help='单个设备的水平视场角，默认为60')
     return parser.parse_args()
 
 
@@ -61,14 +61,14 @@ def main():
     data, labels = load_h5_files(h5_paths)
 
     # —— 2. 导出指定样本 ===== #
-    N = args.slices
     for idx in args.sample_idxs:
         if idx < 0 or idx >= data.shape[0]:
             print(f"[警告] 索引 {idx} 超出范围 (0 to {data.shape[0]-1})，跳过。")
             continue
+
         pts = data[idx]
         label = labels[idx]
-        export_sample_slices(pts, int(label), idx, N, args.out_dir)
+        export_sample_slices(pts, int(label), idx, args.out_dir, args.slices, args.fov_deg)
 
 
 if __name__ == "__main__":
