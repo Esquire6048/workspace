@@ -1,23 +1,24 @@
-# 用法:  python inspect_ply_and_slice.py path/to/room.ply
+# 用法:  python ply_file_io.py ./dataset/LiDAR-Net/learning/x1f1_xianone101.ply
 
-import sys, numpy as np
-import copy
-from plyfile import PlyElement, PlyData
+import sys, copy, numpy as np
+from plyfile import PlyData, PlyElement
 from scipy.spatial import ConvexHull
-from shapely.geometry import Polygon, Point
+from shapely.geometry import Polygon
+import open3d as o3d
+from open3d import utility as o3du
 
-import open3d as o3d      # 只做几何运算，无 GUI
+# ------------------- 可调参数 -------------------
+HFOV_DEG     = 90        # 水平视角 (±45°)
+VFOV_UP      = 15        # 向上角度
+VFOV_DOWN    = 15        # 向下角度
+R_MAX        = 20.0      # 最大量程
+HPR_RADIUS   = 20.0      # HPR 球面半径 (和 R_MAX 一般相等即可)
+VOXEL_SIZE   = 0.05      # 体素大小 (m)，0 表示不下采样
+INSTALL_H    = 1.5       # 传感器安装高度
+INWARD_SCALE = 0.8       # 角点向内缩比例
+# -----------------------------------------------
 
-# ------------------------------ 可调参数 ------------------------------
-HFOV_DEG     = 90          # 水平视角  (deg)     例：90° = ±45°
-VFOV_UP      = 15          # 向上角度  (deg)
-VFOV_DOWN    = 15          # 向下角度  (deg)
-R_MAX        = 20.0        # 最大量程 (m)
-HPR_RADIUS   = 20.0        # HPR 球面半径 (和 R_MAX 一般相等即可)
-VOXEL_SIZE   = 0.05        # 下采样体素，为 0 跳过下采样
-INSTALL_H    = 1.5         # 传感器距地高度 (m)
-INWARD_SCALE = 0.8        # 角点向内缩比例 (0.95 = 缩 5 %)
-# ---------------------------------------------------------------------
+# ------------------- 核心函数 -------------------
 
 def simulate_lidar_view(pcd_global,
                         attr_global,
@@ -29,42 +30,35 @@ def simulate_lidar_view(pcd_global,
                         r_max=R_MAX,
                         r_hpr=HPR_RADIUS,
                         voxel=VOXEL_SIZE):
-    """
-    仅按视场 (FOV) 裁剪，不再做遮挡判定。
-    返回：裁剪后的子云（仍在全局坐标系下）
-    """
-    # ① 构造局部坐标系（让 +X 指向中心）
+    # 传感器局部坐标系（+X 指向中心，水平朝向）
     vec_xy = center[:2] - sensor_pos[:2]
-    yaw = np.arctan2(vec_xy[1], vec_xy[0])
-    R = o3d.geometry.get_rotation_matrix_from_xyz((0, 0, yaw))
-    T = np.eye(4)
-    T[:3, :3], T[:3, 3] = R, sensor_pos
+    yaw    = np.arctan2(vec_xy[1], vec_xy[0])
+    R      = o3d.geometry.get_rotation_matrix_from_xyz((0, 0, yaw))
+    T      = np.eye(4); T[:3,:3], T[:3,3] = R, sensor_pos
 
-    # ② 全局点云 → 局部坐标
+    # 克隆全局点云 → 转到局部
     pcd_local = copy.deepcopy(pcd_global)
     pcd_local.transform(np.linalg.inv(T))
     attr = {k: ary.copy() for k, ary in attr_global.items()}
 
-    # ③ 纯 FOV 几何过滤（扫描锥体）
+    # FOV 几何过滤
     pts = np.asarray(pcd_local.points)
-    dx, dy, dz = pts[:, 0], pts[:, 1], pts[:, 2]
+    dx, dy, dz = pts[:,0], pts[:,1], pts[:,2]
     rr = np.linalg.norm(pts, axis=1)
-    th = np.degrees(np.arctan2(dy, dx))                    # 水平角
-    ph = np.degrees(np.arctan2(dz, np.sqrt(dx**2 + dy**2)))# 垂直角
-
+    th = np.degrees(np.arctan2(dy, dx))
+    ph = np.degrees(np.arctan2(dz, np.sqrt(dx**2 + dy**2)))
     sel_idx = np.where( (np.abs(th)<hfov/2) &
                         (ph<v_up) & (ph>-v_down) &
                         (rr<r_max) )[0]
 
     pcd_vis = pcd_local.select_by_index(sel_idx)
 
-    attr = {k: ary[sel_idx] for k, ary in attr_global.items()} 
+    attr = {k: ary[sel_idx] for k, ary in attr_global.items()}
 
-    # ⑤ 再变回全局坐标
+    # 变回全局
     pcd_vis.transform(T)
     return pcd_vis, attr
 
-# ---------------------------------------------------------------------
 def inspect_ply(path):
     # 1) 读取 PLY, 打印 header & 示例
     with open(path, 'rb') as f:
@@ -73,7 +67,7 @@ def inspect_ply(path):
             l = f.readline().decode('ascii', 'ignore').rstrip()
             header.append(l)
             if l == 'end_header': break
-    print("=== PLY Header ===\n", "\n".join(header), "\n")
+    print("=== PLY 头 ===\n", "\n".join(header), "\n")
 
     ply = PlyData.read(path)
     v   = ply['vertex'].data
@@ -87,7 +81,7 @@ def inspect_ply(path):
         "ins":   v['ins'].astype(np.int32),
     }
 
-    print("=== Example record ===\n", {n:v[0][n] for n in v.dtype.names}, "\n")
+    print("=== 样例 ===\n", {n:v[0][n] for n in v.dtype.names}, "\n")
 
     # 2) AABB
     xmin,xmax = xs.min(), xs.max()
@@ -108,7 +102,7 @@ def inspect_ply(path):
     z_floor = zmin
     sensors = np.column_stack([inner4,
                                np.full(4, z_floor + INSTALL_H)])
-    print("≈ 4  个 LiDAR 安装点:")
+    print("=== LiDAR 安装点 ===")
     for i,p in enumerate(sensors): print(f"{i}: {p}")
 
     # 4) 准备 Open3D 点云
