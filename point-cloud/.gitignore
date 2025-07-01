@@ -1,4 +1,5 @@
 cache/
 dataset/
+ModelNet40-C/
 zipped-data/
 __pycache__/
