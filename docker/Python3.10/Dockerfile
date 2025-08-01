@@ -39,7 +39,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 安装PyTorch、常用Python依赖，并删除缓存
 COPY requirements.txt /app/
 RUN python -m pip --no-cache-dir install --upgrade \
-        --pre torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 -f \
-        https://download.pytorch.org/whl/cu118 \
     && python -m pip install -r requirements.txt \
     && rm -rf ~/.cache/pip
