@@ -33,6 +33,14 @@ https://github.com/hkust-vgd/scanobjectnn
 
 ## 3D物体
 
+## MiniGPT-3D: Efficiently Aligning 3D Point Clouds with Large Language Models using 2D Priors
+
+https://github.com/TangYuan96/MiniGPT-3D
+
+## PointLLM: Empowering Large Language Models to Understand Point Clouds
+
+https://github.com/InternRobotics/PointLLM
+
 ### **ShapeLLM: Universal 3D Object Understanding for Embodied Interaction**
 
 * **输入：** 单个3D物体的点云（可带颜色）
