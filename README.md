@@ -43,7 +43,7 @@ export CUDA_VISIBLE_DEVICES=1
 
 新建镜像 `docker build -t docker_name .`
 
-运行容器 `docker run -it --name="container_name" -v=$(pwd)/:/root/ --gpus all --rm image_name bash`
+运行容器 `docker run -it --name "container_name" -v $(pwd)/:/root/ --gpus all --rm image_name bash`
 
 -it 交互式
 
