@@ -40,6 +40,8 @@ https://github.com/Open3DA/LL3DA
 
 ### Chat-3D: Data-efficiently Tuning LLM for Universal Dialogue of 3D Scenes
 
+https://github.com/Chat-3D/Chat-3D
+
 核心想法：将预训练3D表示对齐到LLM语义空间，打造“通用3D场景对话”系统，强调数据效率。
 
 训练策略：提出三阶段对齐策略，并构建高质量“以对象为中心”的3D指令数据集与相应提示模板以增强推理与交互体验。
